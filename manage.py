@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!C:/Users/Aiden King/PycharmProjects/a2u_appiumrun/venv/Scripts/python.exe
 """Django's command-line utility for administrative tasks."""
 import os
 import sys

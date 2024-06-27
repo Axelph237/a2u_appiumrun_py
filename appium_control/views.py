@@ -11,7 +11,6 @@ from django.shortcuts import render
 def start_appium(request):
     try:
         subprocess.Popen(['appium.cmd'])
-        print(os.getenv('APPIUM_SERVER_URL'))
         return JsonResponse({'status': 'Appium server started successfully'})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
@@ -30,7 +29,10 @@ def stop_appium(request):
 def run_appium_test(request):
     try:
         # Replace with your actual test command
-        subprocess.Popen(['python', 'a2u_appiumrun\\tests\\example_test.py'])
+        venv_python = os.path.join(os.getcwd(), 'venv', 'Scripts', 'python.exe')
+        script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'example_test.py')
+
+        subprocess.Popen([venv_python, script_path])
         return JsonResponse({'status': 'Appium test started successfully'})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)

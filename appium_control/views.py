@@ -1,16 +1,23 @@
 import os
+import time
+
+import psutil
 import subprocess
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
 from django.shortcuts import render
 
-# Create your views here.
 
+appiumProc = None
+
+
+# Create your views here.
 @csrf_exempt
 def start_appium(request):
     try:
-        subprocess.Popen(['appium.cmd'])
+        global appiumProc
+        appiumProc = subprocess.Popen(['appium.cmd'])
+
         return JsonResponse({'status': 'Appium server started successfully'})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
@@ -19,7 +26,12 @@ def start_appium(request):
 @csrf_exempt
 def stop_appium(request):
     try:
-        #subprocess.Popen(['pkill', '-f', 'appium'])
+        if appiumProc is not None:
+            kill(appiumProc.pid)
+            # communication required to perform kill function
+            outs, errs = appiumProc.communicate()
+        else:
+            raise TypeError('Appium has not been started')
         return JsonResponse({'status': 'Appium server stopped successfully'})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
@@ -32,7 +44,19 @@ def run_appium_test(request):
         venv_python = os.path.join(os.getcwd(), 'venv', 'Scripts', 'python.exe')
         script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'example_test.py')
 
-        subprocess.Popen([venv_python, script_path])
-        return JsonResponse({'status': 'Appium test started successfully'})
+        test = subprocess.run([venv_python, script_path], capture_output=True, text=True)
+
+        return JsonResponse({'status': 'Appium test completed',
+                             'returncode': test.returncode,
+                             'output': test.stdout,
+                             'errors': test.stderr})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
+
+# kills a subprocess and all of its child processes
+def kill(proc_pid):
+    process = psutil.Process(proc_pid)
+    for proc in process.children(recursive=True):
+        proc.kill()
+    process.kill()

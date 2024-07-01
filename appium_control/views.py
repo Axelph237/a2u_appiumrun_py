@@ -1,11 +1,10 @@
 import os
-import time
+import json
 
 import psutil
 import subprocess
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
 
 
 appiumProc = None
@@ -42,9 +41,33 @@ def run_appium_test(request):
     try:
         # Replace with your actual test command
         venv_python = os.path.join(os.getcwd(), 'venv', 'Scripts', 'python.exe')
-        script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'example_test.py')
+        script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'appiumtestfile.py')
 
-        test = subprocess.run([venv_python, script_path], capture_output=True, text=True)
+        data = {"input1": "value1"}
+        data_str = json.dumps(data)
+
+        test = subprocess.run([venv_python, script_path, data_str], capture_output=True, text=True)
+
+        if test.stdout is not '':
+            print("The subprocess produced the following output:\n" + test.stdout)
+        if test.stderr is not '':
+            print("Errors found in subprocess:\n" + test.stderr)
+        return JsonResponse({'status': 'Appium test completed',
+                             'returncode': test.returncode,
+                             'output': test.stdout,
+                             'errors': test.stderr})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@csrf_exempt
+def read_test_requirements(request):
+    try:
+        # Replace with your actual test command
+        venv_python = os.path.join(os.getcwd(), 'venv', 'Scripts', 'python.exe')
+        script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'appiumtestfile.py')
+
+        test = subprocess.run([venv_python, script_path, '-r'], capture_output=True, text=True)
 
         return JsonResponse({'status': 'Appium test completed',
                              'returncode': test.returncode,

@@ -71,7 +71,7 @@ def read_test_requirements(request):
 
         return JsonResponse({'status': 'Appium test completed',
                              'returncode': test.returncode,
-                             'output': test.stdout,
+                             'output': test.stdout.strip(),
                              'errors': test.stderr})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)

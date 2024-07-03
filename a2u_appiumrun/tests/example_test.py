@@ -5,7 +5,7 @@ from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 
-inputData = dict(
+input_parameters = dict(
     input1="value",
     input2=1,
     input3=True
@@ -42,23 +42,17 @@ class TestAppium(unittest.TestCase):
 
 
 # Main will be run by a standard command line execution: 'python foo.py <inputData>'
-def main():
+def main(user_input):
     # explicitly declares inputData declaration as global
-    global inputData
-    print(sys.argv[1])
-    inputData = json.loads(sys.argv[1])
-    unittest.main(argv=[sys.argv[0]])
+    global input_parameters
+    if isinstance(user_input, dict):
+        input_parameters = user_input
+    unittest.main()
 
 
-# Read_Requirements passes the script's required input along the command line to the server backend
-# It is run when the script is executed with the '-r' argument: 'python foo.py -r'
-def read_requirements():
-    print(inputData)
+def get_parameters():
+    print(input_parameters)
 
 
-# This will be the entry point of the file when run from the command line
 if __name__ == '__main__':
-    if sys.argv[1] == '-r':
-        read_requirements()
-    else:
-        main()
+    main(None)

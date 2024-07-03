@@ -41,7 +41,7 @@ def run_appium_test(request):
     try:
         # Replace with your actual test command
         venv_python = os.path.join(os.getcwd(), 'venv', 'Scripts', 'python.exe')
-        script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'appiumtestfile.py')
+        script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'appium_test_file.py')
 
         data = {"input1": "value1"}
         data_str = json.dumps(data)
@@ -65,7 +65,7 @@ def read_test_requirements(request):
     try:
         # Replace with your actual test command
         venv_python = os.path.join(os.getcwd(), 'venv', 'Scripts', 'python.exe')
-        script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'appiumtestfile.py')
+        script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'appium_test_file.py')
 
         test = subprocess.run([venv_python, script_path, '-r'], capture_output=True, text=True)
 

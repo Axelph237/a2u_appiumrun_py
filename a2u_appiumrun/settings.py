@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'appium_control',
     'corsheaders',
+    'a2u_appiumrun'
 ]
 
 MIDDLEWARE = [

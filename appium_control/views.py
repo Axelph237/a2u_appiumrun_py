@@ -48,9 +48,9 @@ def run_appium_test(request):
 
         test = subprocess.run([venv_python, script_path, data_str], capture_output=True, text=True)
 
-        if test.stdout is not '':
+        if test.stdout != '':
             print("The subprocess produced the following output:\n" + test.stdout)
-        if test.stderr is not '':
+        if test.stderr != '':
             print("Errors found in subprocess:\n" + test.stderr)
         return JsonResponse({'status': 'Appium test completed',
                              'returncode': test.returncode,

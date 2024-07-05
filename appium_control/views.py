@@ -1,16 +1,27 @@
 import os
 import json
-
 import psutil
 import subprocess
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from a2u_appiumrun.data_handlers import test_handler as th
 
 
 appiumProc = None
 
 
 # Create your views here.
+@csrf_exempt
+def get_tests(request):
+    try:
+        if th.initialized:
+            return JsonResponse(th.definitions)
+
+        raise ValueError('Tests have not been initialized.')
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
 @csrf_exempt
 def start_appium(request):
     try:

@@ -15,7 +15,7 @@ appiumProc = None
 def get_tests(request):
     try:
         if th.initialized:
-            return JsonResponse(th.definitions)
+            return JsonResponse(th.definitions, safe=False)
 
         raise ValueError('Tests have not been initialized.')
     except Exception as e:

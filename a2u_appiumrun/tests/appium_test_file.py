@@ -101,7 +101,7 @@ def main(user_input):
 
 
 def get_parameters():
-    print(input_parameters)
+    return input_parameters
 
 
 if __name__ == '__main__':

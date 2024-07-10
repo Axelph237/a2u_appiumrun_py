@@ -12,6 +12,6 @@ class AppiumRunConfig(AppConfig):
 
     def ready(self):
         # Add your initialization code here
-        th.init('C:\\Users\\aiden\\PycharmProjects\\a2u_appiumrun_py\\a2u_appiumrun\\tests')
+        th.init(os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests'))
         print("\nGathering modules...")
         print(str(th.modules))

@@ -8,7 +8,9 @@ from appium.webdriver.common.appiumby import AppiumBy
 input_parameters = dict(
     input1="value",
     input2=1,
-    input3=True
+    input3=True,
+    input4="Hello World",
+    example_input=False,
 )
 
 capabilities = dict(

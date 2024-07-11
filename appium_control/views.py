@@ -12,12 +12,19 @@ appiumProc = None
 
 # Create your views here.
 @csrf_exempt
-def get_tests(request):
+def tests(request):
     try:
-        if th.initialized:
-            return JsonResponse(th.definitions, safe=False)
+        if request.method == 'GET':
+            # Handle GET request
+            if th.initialized:
+                return JsonResponse(th.definitions, safe=False)
 
-        raise ValueError('Tests have not been initialized.')
+            raise ValueError('Tests have not been initialized.')
+
+        if request.method == 'POST':
+            # Handle POST request
+            pass
+
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 

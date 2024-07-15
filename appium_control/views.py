@@ -78,23 +78,6 @@ def run_appium_test(request):
         return JsonResponse({'error': str(e)}, status=500)
 
 
-@csrf_exempt
-def read_test_requirements(request):
-    try:
-        # Replace with your actual test command
-        venv_python = os.path.join(os.getcwd(), 'venv', 'Scripts', 'python.exe')
-        script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'appium_test_file.py')
-
-        test = subprocess.run([venv_python, script_path, '-r'], capture_output=True, text=True)
-
-        return JsonResponse({'status': 'Appium test completed',
-                             'returncode': test.returncode,
-                             'output': test.stdout.strip(),
-                             'errors': test.stderr})
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
-
-
 # kills a subprocess and all of its child processes
 def kill(proc_pid):
     process = psutil.Process(proc_pid)

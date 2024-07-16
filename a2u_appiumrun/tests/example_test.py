@@ -49,6 +49,7 @@ def main(user_input):
     global input_parameters
     if isinstance(user_input, dict):
         input_parameters = user_input
+    # run unittest from Appium test class
     suite = unittest.TestLoader().loadTestsFromTestCase(TestAppium)
     unittest.TextTestRunner(verbosity=2).run(suite)
 

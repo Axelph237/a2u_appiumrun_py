@@ -56,13 +56,15 @@ def get_definition(test_id):
 
 
 #  Runs the test at the index with test_id
-def run_test(test_id):
+def run_test(request_body):
+    test_id = request_body['test_id']
+
     if test_id > len(definitions):
         raise IndexError(f'Provided test_id ({test_id}) is out of range.')
 
     main_func = getattr(modules[test_id], 'main', None)
     if callable(main_func):
-        return main_func(definitions[test_id]['params'])
+        return main_func(request_body['params'])
 
 
 # Imports python modules from the specified directory, given the package name

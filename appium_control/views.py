@@ -25,7 +25,7 @@ def tests(request):
             # Handle POST request
             body = json.loads(request.body)
 
-            th.run_test(body['test_id'])
+            th.run_test(body)
             return JsonResponse({'data': 'Test was successfully run.'})
             pass
 

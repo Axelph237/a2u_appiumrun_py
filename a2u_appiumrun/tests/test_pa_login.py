@@ -108,9 +108,5 @@ def main(user_input):
     unittest.TextTestRunner(verbosity=2).run(suite)
 
 
-def get_parameters():
-    return input_parameters
-
-
 if __name__ == '__main__':
     main(None)

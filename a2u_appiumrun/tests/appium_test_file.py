@@ -34,7 +34,7 @@ capabilities = dict(
 appium_server_url = 'http://localhost:4723'
 
 
-class TestAppium(unittest.TestCase):
+class TestPALogin(unittest.TestCase):
     def setUp(self) -> None:
         logging.info("Initializing Appium driver")
         self.driver = webdriver.Remote(appium_server_url, options=UiAutomator2Options().load_capabilities(capabilities))
@@ -98,7 +98,7 @@ def main(user_input):
     global input_parameters
     if isinstance(user_input, dict):
         input_parameters = user_input
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestAppium)
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestPALogin)
     unittest.TextTestRunner(verbosity=2).run(suite)
 
 

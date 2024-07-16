@@ -23,6 +23,10 @@ def tests(request):
 
         if request.method == 'POST':
             # Handle POST request
+            body = json.loads(request.body)
+
+            th.run_test(body['test_id'])
+            return JsonResponse({'data': 'Test was successfully run.'})
             pass
 
     except Exception as e:

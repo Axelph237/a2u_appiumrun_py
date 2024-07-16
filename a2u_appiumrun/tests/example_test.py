@@ -43,7 +43,6 @@ class TestAppium(unittest.TestCase):
         el.click()
 
 
-# Main will be run by a standard command line execution: 'python foo.py <inputData>'
 def main(user_input):
     # explicitly declares inputData declaration as global
     global input_parameters

@@ -94,8 +94,6 @@ class TestPALogin(unittest.TestCase):
         time.sleep(5)
 
 
-# TODO fix error where tests are not liking no input from the front end
-# Main will be run by a standard command line execution: 'python foo.py <inputData>'
 def main(user_input):
     # explicitly declares inputData declaration as global
     global input_parameters

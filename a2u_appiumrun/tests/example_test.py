@@ -6,11 +6,11 @@ from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 
 input_parameters = dict(
-    input1="value",
+    input1=False,
     input2=1,
     input3=True,
     input4="Hello World",
-    example_input=False,
+    example_input="value",
 )
 
 capabilities = dict(
@@ -49,7 +49,8 @@ def main(user_input):
     global input_parameters
     if isinstance(user_input, dict):
         input_parameters = user_input
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestAppium)
+    unittest.TextTestRunner(verbosity=2).run(suite)
 
 
 def get_parameters():

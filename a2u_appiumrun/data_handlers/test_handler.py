@@ -42,7 +42,7 @@ def create_definitions():
         definitions.append(dict(
             file_name=module.__name__.removeprefix('a2u_appiumrun.tests.'),
             test_id=test_id,
-            params=call_function_from_module(module, 'get_parameters'),
+            params=getattr(module, 'input_parameters', None),
         ))
         test_id += 1
 

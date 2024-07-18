@@ -58,28 +58,28 @@ def stop_appium(request):
         return JsonResponse({'error': str(e)}, status=500)
 
 
-@csrf_exempt
-def run_appium_test(request):
-    try:
-        # Replace with your actual test command
-        venv_python = os.path.join(os.getcwd(), 'venv', 'Scripts', 'python.exe')
-        script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'appium_test_file.py')
-
-        data = {"input1": "value1"}
-        data_str = json.dumps(data)
-
-        test = subprocess.run([venv_python, script_path, data_str], capture_output=True, text=True)
-
-        if test.stdout != '':
-            print("The subprocess produced the following output:\n" + test.stdout)
-        if test.stderr != '':
-            print("Errors found in subprocess:\n" + test.stderr)
-        return JsonResponse({'status': 'Appium test completed',
-                             'returncode': test.returncode,
-                             'output': test.stdout,
-                             'errors': test.stderr})
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+# @csrf_exempt
+# def run_appium_test(request):
+#     try:
+#         # Replace with your actual test command
+#         venv_python = os.path.join(os.getcwd(), 'venv', 'Scripts', 'python.exe')
+#         script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'appium_test_file.py')
+#
+#         data = {"input1": "value1"}
+#         data_str = json.dumps(data)
+#
+#         test = subprocess.run([venv_python, script_path, data_str], capture_output=True, text=True)
+#
+#         if test.stdout != '':
+#             print("The subprocess produced the following output:\n" + test.stdout)
+#         if test.stderr != '':
+#             print("Errors found in subprocess:\n" + test.stderr)
+#         return JsonResponse({'status': 'Appium test completed',
+#                              'returncode': test.returncode,
+#                              'output': test.stdout,
+#                              'errors': test.stderr})
+#     except Exception as e:
+#         return JsonResponse({'error': str(e)}, status=500)
 
 
 # kills a subprocess and all of its child processes

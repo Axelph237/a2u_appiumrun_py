@@ -37,7 +37,7 @@ def tests(request):
 def start_appium(request):
     try:
         global appiumProc
-        appiumProc = subprocess.Popen(['appium.cmd'])
+        appiumProc = subprocess.Popen(['appium.cmd', '--allow-insecure', 'chromedriver_autodownload'])
 
         return JsonResponse({'status': 'Appium server started successfully'})
     except Exception as e:

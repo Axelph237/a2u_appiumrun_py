@@ -29,6 +29,7 @@ def load_tests():
     if not initialized:
         raise ValueError(f"tests_directory {tests_directory} is None. Module has not been initialized.")
 
+    # Ensuring empty arrays
     definitions.clear()
     modules.clear()
 
@@ -36,8 +37,29 @@ def load_tests():
     create_definitions()
 
 
+# Imports python modules from the specified directory, given the package name
+# Arguments:
+#   directory: the path location of the modules
+#   package_name: the relative package name, i.e. 'foo.bar'
+def import_modules(directory, package_name):
+    global modules
+
+    modules = []
+
+    for filename in os.listdir(directory):
+        if filename.endswith('.py') and filename != '__init__.py':
+            # Remove suffix and create path
+            module_name = filename[:-3]
+            module_path = f'{package_name}.{module_name}'
+            # Import script as a module
+            module = importlib.import_module(module_path)
+            modules.append(module)
+
+    return modules
+
+
 # Takes all imported modules and creates a dictionary definition for them
-# Dictionary contains the following fields: file_name, test_id, params
+# Dictionary contains the following fields: file_name, test_id, params, capabilities
 def create_definitions():
     test_id = 0
     for module in modules:
@@ -70,29 +92,10 @@ def run_test(request_body):
         return main_func(request_body['params'])
 
 
-# Imports python modules from the specified directory, given the package name
-# Arguments:
-#   directory: the path location of the modules
-#   package_name: the relative package name, i.e. 'foo.bar'
-def import_modules(directory, package_name):
-    global modules
-
-    modules = []
-
-    for filename in os.listdir(directory):
-        if filename.endswith('.py') and filename != '__init__.py':
-            # Remove suffix and create path
-            module_name = filename[:-3]
-            module_path = f'{package_name}.{module_name}'
-            # Import script as a module
-            module = importlib.import_module(module_path)
-            modules.append(module)
-
-    return modules
-
-
+'''
 # Given a module and a function name as a String, runs a function and returns its value
 def call_function_from_module(module, function_name):
     func = getattr(module, function_name, None)
     if callable(func):
         return func()
+'''

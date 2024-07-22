@@ -14,10 +14,11 @@ def init(directory):
     global tests_directory, initialized
 
     try:
+        initialized = True
         tests_directory = directory
         load_tests()
-        initialized = True
     except Exception as e:
+        initialized = False
         print('Test Handler initialization failed with exception: ' + str(e))
 
 
@@ -26,7 +27,7 @@ def load_tests():
     global modules, definitions
 
     if not initialized:
-        raise ValueError(f"Tests_directory {tests_directory} is None. Module has not been initialized.")
+        raise ValueError(f"tests_directory {tests_directory} is None. Module has not been initialized.")
 
     definitions.clear()
     modules.clear()

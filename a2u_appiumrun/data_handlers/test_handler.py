@@ -27,7 +27,6 @@ def load_tests():
 
     if not initialized:
         raise ValueError(f"Tests_directory {tests_directory} is None. Module has not been initialized.")
-        return None
 
     definitions.clear()
     modules.clear()

@@ -13,10 +13,12 @@ initialized = False
 def init(directory):
     global tests_directory, initialized
 
-    initialized = True
-
-    tests_directory = directory
-    load_tests()
+    try:
+        tests_directory = directory
+        load_tests()
+        initialized = True
+    except Exception as e:
+        print('Test Handler initialization failed with exception: ' + str(e))
 
 
 # Loads all test modules found in the tests_directory

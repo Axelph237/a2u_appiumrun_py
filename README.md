@@ -1,8 +1,8 @@
 ﻿
 # Understanding automation
-> Since the testing humans actually do cannot be put into words, it cannot be encoded and therefore cannot be automated. We should not use a term that implies it can be.   --- James Bach & Michael Bolton from *A Context-Driven Approach to Automation in Testing*
+> Since the testing humans actually do cannot be put into words, it cannot be encoded and therefore cannot be automated. We should not use a term that implies it can be.   - James Bach & Michael Bolton from *A Context-Driven Approach to Automation in Testing*
 
-> **Output Checks.** Mechanized or mechanizable processes for gathering product observations and evaluating them. A test is always human-guided, whereas a check, by definition, can be completely automated. A test often includes one or more checks, but a check cannot include a test.   --- James Bach, Jonathan Bach & Michael Bolton from *Elements of Excellent Testing*
+> **Output Checks.** Mechanized or mechanizable processes for gathering product observations and evaluating them. A test is always human-guided, whereas a check, by definition, can be completely automated. A test often includes one or more checks, but a check cannot include a test.   - James Bach, Jonathan Bach & Michael Bolton from *Elements of Excellent Testing*
 
 The two quotes above lay a groundwork for how use of this software should proceed. It is not without the human's intervention that any script here can be utilized. Therefore, what are commonly referred to as "test scripts" will instead be referred to as "check scripts" here.
 

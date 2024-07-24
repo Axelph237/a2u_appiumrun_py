@@ -1,5 +1,6 @@
 import os
 import importlib
+import inspect
 
 scripts_directory = None
 modules = []
@@ -64,7 +65,7 @@ def create_definitions():
     script_id = 0
     for module in modules:
         definitions.append(dict(
-            file_name=module.__name__.removeprefix('a2u_appiumrun.scripts.'),
+            file_name=inspect.getmodulename(module.__file__),
             script_id=script_id,
             definition=getattr(module, 'definition', None),
             capabilities=getattr(module, 'capabilities', None),

@@ -8,9 +8,13 @@ from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 
 definition = dict(
-    top_level_domain='com',
-    username='none',
-    password='none',
+    script_name='Reports App Login',
+    description='A simple tool for checking the login functionality of the Reports App.',
+    parameters=dict(
+        top_level_domain='com',
+        username='none',
+        password='none',
+    )
 )
 
 logging.basicConfig(

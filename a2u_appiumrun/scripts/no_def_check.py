@@ -33,13 +33,3 @@ class TestAppium(unittest.TestCase):
     def test_find_battery(self) -> None:
         el = self.driver.find_element(by=AppiumBy.XPATH, value='//*[@text="Battery"]')
         el.click()
-
-
-def main():
-    # run unittest from Appium test class
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestAppium)
-    unittest.TextTestRunner(verbosity=2).run(suite)
-
-
-if __name__ == '__main__':
-    main()

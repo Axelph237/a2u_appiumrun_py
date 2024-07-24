@@ -99,13 +99,3 @@ class TestPALogin(unittest.TestCase):
         el8.click()
 
         time.sleep(5)
-
-
-def main():
-    # run unittest from Appium test class
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestPALogin)
-    unittest.TextTestRunner(verbosity=2).run(suite)
-
-
-if __name__ == '__main__':
-    main()

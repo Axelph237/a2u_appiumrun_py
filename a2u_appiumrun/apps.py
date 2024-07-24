@@ -2,7 +2,7 @@ from django.apps import AppConfig
 import logging
 import os
 import importlib
-import a2u_appiumrun.data_handlers.test_handler as th
+import a2u_appiumrun.data_handlers.script_handler as th
 
 logger = logging.getLogger(__name__)
 

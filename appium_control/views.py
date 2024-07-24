@@ -4,7 +4,7 @@ import psutil
 import subprocess
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from a2u_appiumrun.data_handlers import test_handler as th
+from a2u_appiumrun.data_handlers import script_handler as th
 
 
 appiumProc = None

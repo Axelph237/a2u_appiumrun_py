@@ -10,7 +10,7 @@ initialized = False
 # TODO Refactor test_handler to script_handler, including references in views.py
 # Used to initialize the module's values
 # Arguments:
-#   directory: the path to import test modules from
+#   directory: the path to import script modules from
 def init(directory):
     global tests_directory, initialized
 
@@ -23,7 +23,7 @@ def init(directory):
         print('Test Handler initialization failed with exception: ' + str(e))
 
 
-# Loads all test modules found in the tests_directory
+# Loads all script modules found in the tests_directory
 def load_tests():
     global modules, definitions
 
@@ -60,7 +60,7 @@ def import_modules(directory, package_name):
 
 
 # Takes all imported modules and creates a dictionary definition for them
-# Dictionary contains the following fields: file_name, test_id, params, capabilities
+# Dictionary contains the following fields: file_name, script_id, definition, capabilities
 def create_definitions():
     script_id = 0
     for module in modules:
@@ -73,7 +73,7 @@ def create_definitions():
         script_id += 1
 
 
-# Gets the definition of a test module at the specified index
+# Gets the definition of a script module at the specified index
 def get_definition(script_id):
     if script_id < len(definitions):
         return definitions[script_id]
@@ -81,7 +81,7 @@ def get_definition(script_id):
         return None
 
 
-#  Runs the test at the index with script_id
+#  Runs the script at the index with script_id
 def run_test(request_body):
     script_id = request_body['test_id']
 

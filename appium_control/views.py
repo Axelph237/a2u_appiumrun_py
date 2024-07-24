@@ -26,7 +26,7 @@ def scripts(request):
             # Handle POST request
             body = json.loads(request.body)
 
-            sh.run_test(body)
+            sh.handle_run_request(body)
             return JsonResponse({'data': 'Test was successfully run.'})
             pass
 

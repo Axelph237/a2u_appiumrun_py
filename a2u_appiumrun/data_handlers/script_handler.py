@@ -1,6 +1,7 @@
 import os
 import importlib
 import inspect
+import unittest
 
 scripts_directory = None
 modules = []
@@ -81,27 +82,50 @@ def get_definition(script_id):
         return None
 
 
-#  Runs the script at the index with script_id
-def run_test(request_body):
-    script_id = request_body['test_id']
+def handle_run_request(request_body):
+    script_id = request_body['script_id']
 
+    # Ensure script_id is a valid module
     if script_id > len(definitions):
-        raise IndexError(f'Provided test_id ({script_id}) is out of range.')
+        raise IndexError(f'Provided script_id ({script_id}) is out of range.')
 
-    # explicitly declares inputData declaration as global
-    user_input = request_body['params']
-    definition = getattr(modules[script_id], 'definition', None)
+    process_input(request_body)
+    run_test(request_body, script_id)
+
+
+def process_input(request_body):
+    # Get the input parameters from the request, then set them within the script
+    # If the script has no definition, or the parameters are empty, raise KeyError
     try:
-        if isinstance(user_input, dict) and definition is not None:
-            definition['parameters'] = user_input
-    except KeyError:
-        print('Attempt to access script parameters failed. Parameters were missing.')
-        print('   Provided input: ' + str(user_input))
-        print('   Script definition: ' + str(definition))
+        request_definition = request_body['definition']
+        if request_definition is None:
+            raise ValueError()
 
-    main_func = getattr(modules[script_id], 'main', None)
+        definition = getattr(modules[request_body['script_id']], 'definition', None)
+
+        if isinstance(request_definition['parameters'], dict) and definition is not None:
+            definition['parameters'] = request_definition['parameters']
+    except (KeyError, ValueError):
+        # TODO make print statements like these official log statements
+        print('[WARN] Attempt to access script parameters failed. Parameters were likely missing.')
+
+
+#  Runs the script at the index with script_id
+def run_test(request_body, script_id):
+
+    # Get all class members of the module
+    members = inspect.getmembers(modules[script_id], inspect.isclass)
+    # Filter out the classes that are defined in your module, and only accept classes that inherit from TestCase
+    classes = [member for name, member in members
+               if member.__module__ == modules[script_id].__name__ and issubclass(member, unittest.TestCase)]
+    # Only run first TestCase for now
+    suite = unittest.TestLoader().loadTestsFromTestCase(classes[0])
+    unittest.TextTestRunner(verbosity=2).run(suite)
+
+    # Deprecated main call to script modules
+    '''main_func = getattr(modules[script_id], 'main', None)
     if callable(main_func):
-        return main_func()
+        return main_func()'''
 
 
 '''

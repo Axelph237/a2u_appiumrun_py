@@ -4,7 +4,7 @@ import psutil
 import subprocess
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from a2u_appiumrun.data_handlers import script_handler as th
+from a2u_appiumrun.data_handlers import script_handler as sh
 
 
 appiumProc = None
@@ -17,8 +17,8 @@ def tests(request):
     try:
         if request.method == 'GET':
             # Handle GET request
-            if th.initialized:
-                return JsonResponse(th.definitions, safe=False)
+            if sh.initialized:
+                return JsonResponse(sh.definitions, safe=False)
 
             raise ValueError('Tests have not been initialized.')
 
@@ -26,7 +26,7 @@ def tests(request):
             # Handle POST request
             body = json.loads(request.body)
 
-            th.run_test(body)
+            sh.run_test(body)
             return JsonResponse({'data': 'Test was successfully run.'})
             pass
 

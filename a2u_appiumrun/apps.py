@@ -12,7 +12,7 @@ class AppiumRunConfig(AppConfig):
 
     def ready(self):
         # Add your initialization code here
-        th.init(os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests'))
+        th.init(os.path.join(os.getcwd(), 'a2u_appiumrun', 'scripts'))
         print("\nGathering modules...")
         print('Modules:')
         print(str(th.modules))

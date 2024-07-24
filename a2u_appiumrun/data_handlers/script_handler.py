@@ -1,40 +1,39 @@
 import os
 import importlib
 
-tests_directory = None
+scripts_directory = None
 modules = []
 definitions = []
 initialized = False
 
 
-# TODO Refactor test_handler to script_handler, including references in views.py
 # Used to initialize the module's values
 # Arguments:
 #   directory: the path to import script modules from
 def init(directory):
-    global tests_directory, initialized
+    global scripts_directory, initialized
 
     try:
         initialized = True
-        tests_directory = directory
-        load_tests()
+        scripts_directory = directory
+        load_scripts()
     except Exception as e:
         initialized = False
-        print('Test Handler initialization failed with exception: ' + str(e))
+        print('Script Handler initialization failed with exception: ' + str(e))
 
 
 # Loads all script modules found in the tests_directory
-def load_tests():
+def load_scripts():
     global modules, definitions
 
     if not initialized:
-        raise ValueError(f"tests_directory {tests_directory} is None. Module has not been initialized.")
+        raise ValueError(f"scripts_directory {scripts_directory} is None. Module may have not been initialized.")
 
     # Ensuring empty arrays
     definitions.clear()
     modules.clear()
 
-    modules = import_modules(tests_directory, 'a2u_appiumrun.tests')
+    modules = import_modules(scripts_directory, 'a2u_appiumrun.scripts')
     create_definitions()
 
 
@@ -65,7 +64,7 @@ def create_definitions():
     script_id = 0
     for module in modules:
         definitions.append(dict(
-            file_name=module.__name__.removeprefix('a2u_appiumrun.tests.'),
+            file_name=module.__name__.removeprefix('a2u_appiumrun.scripts.'),
             script_id=script_id,
             definition=getattr(module, 'definition', None),
             capabilities=getattr(module, 'capabilities', None),

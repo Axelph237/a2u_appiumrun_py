@@ -10,10 +10,10 @@ from a2u_appiumrun.data_handlers import script_handler as sh
 appiumProc = None
 
 
-# TODO Refactor tests to scripts
+# TODO Refactor scripts to scripts
 # Create your views here.
 @csrf_exempt
-def tests(request):
+def scripts(request):
     try:
         if request.method == 'GET':
             # Handle GET request
@@ -64,7 +64,7 @@ def stop_appium(request):
 #     try:
 #         # Replace with your actual test command
 #         venv_python = os.path.join(os.getcwd(), 'venv', 'Scripts', 'python.exe')
-#         script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'tests', 'appium_test_file.py')
+#         script_path = os.path.join(os.getcwd(), 'a2u_appiumrun', 'scripts', 'appium_test_file.py')
 #
 #         data = {"input1": "value1"}
 #         data_str = json.dumps(data)

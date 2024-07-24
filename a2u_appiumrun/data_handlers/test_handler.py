@@ -61,15 +61,15 @@ def import_modules(directory, package_name):
 # Takes all imported modules and creates a dictionary definition for them
 # Dictionary contains the following fields: file_name, test_id, params, capabilities
 def create_definitions():
-    test_id = 0
+    script_id = 0
     for module in modules:
         definitions.append(dict(
             file_name=module.__name__.removeprefix('a2u_appiumrun.tests.'),
-            test_id=test_id,
+            script_id=script_id,
             definition=getattr(module, 'definition', None),
             capabilities=getattr(module, 'capabilities', None),
         ))
-        test_id += 1
+        script_id += 1
 
 
 # Gets the definition of a test module at the specified index

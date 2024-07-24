@@ -87,9 +87,20 @@ def run_test(request_body):
     if test_id > len(definitions):
         raise IndexError(f'Provided test_id ({test_id}) is out of range.')
 
+    # explicitly declares inputData declaration as global
+    user_input = request_body['params']
+    definition = getattr(modules[test_id], 'definition', None)
+    try:
+        if isinstance(user_input, dict) and definition is not None:
+            definition['parameters'] = user_input
+    except KeyError:
+        print('Attempt to access script parameters failed. Parameters were missing.')
+        print('   Provided input: ' + str(user_input))
+        print('   Script definition: ' + str(definition))
+
     main_func = getattr(modules[test_id], 'main', None)
     if callable(main_func):
-        return main_func(request_body['params'])
+        return main_func()
 
 
 '''

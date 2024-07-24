@@ -55,45 +55,10 @@ class ExampleCheckScript(unittest.TestCase):
 	    params = definition['parameters']
         el = self.driver.find_element(by=AppiumBy.XPATH, value=params['element_xpath'])  
         el.click()
-
-
-def main(user_input):  
-    # explicitly declares inputData declaration as global  
-    global definition
-    if isinstance(user_input, dict):  
-        definition = user_input
-    # run unittest from Appium test class  
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestAppium)  
-    unittest.TextTestRunner(verbosity=2).run(suite)
-
-
-if __name__ == '__main__':  
-    main(None)
 ```
 
-## Creating runnable scripts
-All check scripts are run as modules from the backend. A script must contain certain methods and module-level-variables in order to be run by Check2U. A `main()` method and `definition` variable must both be implemented.
-
-### `main()` method
-The `main()` method is the entry-point for all check scripts. It is where all user input is passed and organized before running the automated check. `main()` only has one argument, `user_input`. Here is an example of a properly formatted `main()` method.
-
-```python
-def main(user_input):
-	# explicitly overwrite params of definition
-	global definition
-	if isinstance(user_input, dict):
-        definition['parameters'] = user_input
-    
-    # run unittest from Appium test class  
-    suite = unittest.TestLoader().loadTestsFromTestCase(ExampleCheckClass)  
-	unittest.TextTestRunner(verbosity=2).run(suite)
-```
-Essentially, the `main()` method is doing the following:
-
- 1. Reading the `user_input` argument only if it is a dict object
- 2. Overwriting the `params` of the previously mentioned module-level `definition` variable
- 3. Explicitly loading a test suite from an [Appium TestCase class](https://appium.io/docs/en/latest/quickstart/test-py/) using Python's `unittest` module (In this case, `ExampleCheckClass`)
- 4. Running the test suite with a detailed textual output
+## Creating variable scripts
+By default, any class that inherits from the unittest.TestCase class is a runnable script. All check scripts are run as modules from the backend, and may contain a `definition` to make them a variable script. Variable scripts may contain `parameters` and other fields that allow them to use variable data in the script that has been input by the user.
 
 ### `definition` module-level variable
 The `definition` variable is unsurprisingly used for defining various attributes about the check script. It is a dict object that should be defined at the module-level within your script. A `definition` declaration may look like:

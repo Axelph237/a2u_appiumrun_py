@@ -7,7 +7,7 @@ from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 
-input_parameters = dict(
+definition = dict(
     top_level_domain='com',
     username='none',
     password='none',
@@ -47,7 +47,7 @@ class TestPALogin(unittest.TestCase):
             logging.info("Appium driver quit")
 
     def test_login(self) -> None:
-        global input_parameters
+        global definition
         print("INPUTS FROM TEST_PA_LOGIN.TestPALogin.test_login: " + str(input_parameters))
 
         self.driver.implicitly_wait(70)
@@ -97,17 +97,11 @@ class TestPALogin(unittest.TestCase):
         time.sleep(5)
 
 
-def main(user_input):
-    # explicitly declares inputData declaration as global
-    global input_parameters
-    if isinstance(user_input, dict):
-        input_parameters = user_input
-
-    print("INPUTS FROM TEST_PA_LOGIN.MAIN: " + str(input_parameters))
+def main():
     # run unittest from Appium test class
     suite = unittest.TestLoader().loadTestsFromTestCase(TestPALogin)
     unittest.TextTestRunner(verbosity=2).run(suite)
 
 
 if __name__ == '__main__':
-    main(None)
+    main()

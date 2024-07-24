@@ -5,12 +5,9 @@ from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 
-input_parameters = dict(
-    input1=False,
-    input2=1,
-    input3=True,
-    input4="Hello World",
-    example_input="value",
+definition = dict(
+    script_name='Example Test',
+    description='An example description.',
 )
 
 capabilities = dict(
@@ -43,15 +40,11 @@ class TestAppium(unittest.TestCase):
         el.click()
 
 
-def main(user_input):
-    # explicitly declares inputData declaration as global
-    global input_parameters
-    if isinstance(user_input, dict):
-        input_parameters = user_input
+def main():
     # run unittest from Appium test class
     suite = unittest.TestLoader().loadTestsFromTestCase(TestAppium)
     unittest.TextTestRunner(verbosity=2).run(suite)
 
 
 if __name__ == '__main__':
-    main(None)
+    main()

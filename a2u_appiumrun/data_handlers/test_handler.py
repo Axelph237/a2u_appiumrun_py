@@ -6,6 +6,7 @@ modules = []
 definitions = []
 initialized = False
 
+
 # TODO Refactor test_handler to script_handler, including references in views.py
 # Used to initialize the module's values
 # Arguments:
@@ -73,23 +74,23 @@ def create_definitions():
 
 
 # Gets the definition of a test module at the specified index
-def get_definition(test_id):
-    if test_id < len(definitions):
-        return definitions[test_id]
+def get_definition(script_id):
+    if script_id < len(definitions):
+        return definitions[script_id]
     else:
         return None
 
 
-#  Runs the test at the index with test_id
+#  Runs the test at the index with script_id
 def run_test(request_body):
-    test_id = request_body['test_id']
+    script_id = request_body['test_id']
 
-    if test_id > len(definitions):
-        raise IndexError(f'Provided test_id ({test_id}) is out of range.')
+    if script_id > len(definitions):
+        raise IndexError(f'Provided test_id ({script_id}) is out of range.')
 
     # explicitly declares inputData declaration as global
     user_input = request_body['params']
-    definition = getattr(modules[test_id], 'definition', None)
+    definition = getattr(modules[script_id], 'definition', None)
     try:
         if isinstance(user_input, dict) and definition is not None:
             definition['parameters'] = user_input
@@ -98,7 +99,7 @@ def run_test(request_body):
         print('   Provided input: ' + str(user_input))
         print('   Script definition: ' + str(definition))
 
-    main_func = getattr(modules[test_id], 'main', None)
+    main_func = getattr(modules[script_id], 'main', None)
     if callable(main_func):
         return main_func()
 

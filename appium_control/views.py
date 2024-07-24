@@ -10,6 +10,7 @@ from a2u_appiumrun.data_handlers import test_handler as th
 appiumProc = None
 
 
+# TODO Refactor tests to scripts
 # Create your views here.
 @csrf_exempt
 def tests(request):

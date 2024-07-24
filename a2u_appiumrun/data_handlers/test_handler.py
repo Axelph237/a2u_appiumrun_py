@@ -6,7 +6,7 @@ modules = []
 definitions = []
 initialized = False
 
-
+# TODO Refactor test_handler to script_handler, including references in views.py
 # Used to initialize the module's values
 # Arguments:
 #   directory: the path to import test modules from

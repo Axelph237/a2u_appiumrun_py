@@ -6,7 +6,7 @@ from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 
 definition = dict(
-    script_name='Example Test',
+    script_name='No Params Example',
     description='An example description.',
 )
 

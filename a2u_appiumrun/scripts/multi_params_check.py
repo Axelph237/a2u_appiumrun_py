@@ -39,7 +39,7 @@ class PseudoCheck(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def check_print(self) -> None:
+    def test_print(self) -> None:
         params = definition['parameters']
         print('Test begun successfully with following parameters:')
         print(f'string_input: {params["string_input"]}')

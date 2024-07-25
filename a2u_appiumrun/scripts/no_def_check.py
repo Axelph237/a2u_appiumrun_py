@@ -29,5 +29,5 @@ class PseudoCheck(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def check_print(self) -> None:
+    def test_print(self) -> None:
         print('Test run successfully.')

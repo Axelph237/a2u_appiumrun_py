@@ -7,7 +7,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 definition = dict(
     script_name='Multi Params Example',
-    description='An example description.',
+    description='Checks the display of multiple parameter types from the frontend. Prints inputted values to the backend on run.',
     parameters=dict(
         string_input='Hello world!',
         number_input=10,

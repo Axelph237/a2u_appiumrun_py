@@ -7,7 +7,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 definition = dict(
     script_name='No Params Example',
-    description='An example description.',
+    description='Checks the application validity when a definition but no parameters are passed to the frontend and back.',
 )
 
 capabilities = dict(

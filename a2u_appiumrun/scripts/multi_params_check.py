@@ -5,6 +5,16 @@ from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 
+definition = dict(
+    script_name='Example Test',
+    description='An example description.',
+    parameters=dict(
+        string_input='Hello world!',
+        number_input=10,
+        bool_input=True,
+    )
+)
+
 capabilities = dict(
     platformName='Android',
     automationName='uiautomator2',
@@ -30,4 +40,9 @@ class PseudoCheck(unittest.TestCase):
         pass
 
     def check_print(self) -> None:
-        print('Test run successfully.')
+        params = definition['parameters']
+        print('Test begun successfully with following parameters:')
+        print(f'string_input: {params["string_input"]}')
+        print(f'number_input: {params["number_input"]}')
+        print(f'bool_input: {params["bool_input"]}')
+
